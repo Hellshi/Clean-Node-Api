@@ -5,7 +5,7 @@ import { httpResponse, httpResquest } from './protocols/http';
 /* eslint-disable class-methods-use-this */
 export class SingUpController {
   handle(httpResquest: httpResquest): httpResponse {
-    const requiredFields = ['name', 'email'];
+    const requiredFields = ['name', 'email', 'passwordConfirm', 'password'];
 
     for (const field of requiredFields) {
       if (!httpResquest.body[field]) {
