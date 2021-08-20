@@ -5,6 +5,7 @@
         "es6": true,
         "jest/globals": true
     },
+
     "extends": [
         "airbnb-base", "plugin:import/typescript"
     ],
@@ -17,6 +18,13 @@
         "@typescript-eslint", "jest"
     ],
     "rules": {
+      "class-methods-use-this":"off",
+      "no-unused-expressions":"warn",
+      "import/prefer-default-export": "off",
+      "linebreak-style":"off",
+      "no-unused-vars":"warn",
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
 
    "import/extensions": [
       "error",
