@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "commit": "git cz",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@types/express": "^4.17.13",

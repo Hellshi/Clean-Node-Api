@@ -18,10 +18,11 @@
         "@typescript-eslint", "jest"
     ],
     "rules": {
+      "consistent-return":"off",
+      "object-curly-newline": ["error", {"multiline": true}],
       "class-methods-use-this":"off",
       "no-unused-expressions":"warn",
       "import/prefer-default-export": "off",
-      "linebreak-style":"off",
       "no-unused-vars":"warn",
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
