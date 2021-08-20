@@ -18,6 +18,7 @@
         "@typescript-eslint", "jest"
     ],
     "rules": {
+      "no-restricted-syntax": "off",
       "consistent-return":"off",
       "object-curly-newline": ["error", {"multiline": true}],
       "class-methods-use-this":"off",
