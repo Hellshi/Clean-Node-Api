@@ -15,5 +15,6 @@ describe('', () => {
     const httpResponse = sut.handle(httpResquest);
 
     expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual(new Error('missing param: name'));
   });
 });
