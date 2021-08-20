@@ -1,3 +1,4 @@
+import { MissingParamError } from './errors/missing-param-error';
 import { SingUpController } from './singup';
 
 describe('', () => {
@@ -15,7 +16,7 @@ describe('', () => {
     const httpResponse = sut.handle(httpResquest);
 
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new Error('missing param: name'));
+    expect(httpResponse.body).toEqual(new MissingParamError('name'));
   });
 
   test('Should return 400 when no email is provided ', () => {
@@ -32,6 +33,6 @@ describe('', () => {
     const httpResponse = sut.handle(httpResquest);
 
     expect(httpResponse.statusCode).toBe(400);
-    expect(httpResponse.body).toEqual(new Error('missing param: email'));
+    expect(httpResponse.body).toEqual(new MissingParamError('email'));
   });
 });
