@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-unused-vars */
 import { MissingParamError, ServerError, InvalidParamError } from './errors';
-import { EmailValidator } from './protocols/email-validator';
+import { EmailValidator } from './protocols';
 import { SingUpController } from './singup';
 
 interface StubTypes {
