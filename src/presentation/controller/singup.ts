@@ -1,5 +1,6 @@
 import { InvalidParamError } from './errors/invalid-param-error copy';
 import { MissingParamError } from './errors/missing-param-error';
+import { ServerError } from './errors/server-error';
 import { badRequest } from './helpers/http-helpers';
 import { Controller } from './protocols/controller';
 import { EmailValidator } from './protocols/email-validator';
@@ -13,18 +14,25 @@ export class SingUpController implements Controller {
   }
 
   handle(httpResquest: httpResquest): httpResponse {
-    const requiredFields = ['name', 'email', 'passwordConfirm', 'password'];
+    try {
+      const requiredFields = ['name', 'email', 'passwordConfirm', 'password'];
 
-    for (const field of requiredFields) {
-      if (!httpResquest.body[field]) {
-        return badRequest(new MissingParamError(field));
+      for (const field of requiredFields) {
+        if (!httpResquest.body[field]) {
+          return badRequest(new MissingParamError(field));
+        }
       }
-    }
 
-    const isValid = this.emailValidator.isValid(httpResquest.body.email);
+      const isValid = this.emailValidator.isValid(httpResquest.body.email);
 
-    if (!isValid) {
-      return badRequest(new InvalidParamError('email'));
+      if (!isValid) {
+        return badRequest(new InvalidParamError('email'));
+      }
+    } catch (error) {
+      return {
+        statusCode: 500,
+        body: new ServerError(),
+      };
     }
   }
 }
