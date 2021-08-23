@@ -1,8 +1,6 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-unused-vars */
-import { InvalidParamError } from './errors/invalid-param-error copy';
-import { MissingParamError } from './errors/missing-param-error';
-import { ServerError } from './errors/server-error';
+import { MissingParamError, ServerError, InvalidParamError } from './errors';
 import { EmailValidator } from './protocols/email-validator';
 import { SingUpController } from './singup';
 
