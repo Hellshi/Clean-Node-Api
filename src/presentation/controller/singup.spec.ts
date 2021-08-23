@@ -1,11 +1,31 @@
+/* eslint-disable no-unused-vars */
+import { InvalidParamError } from './errors/invalid-param-error copy';
 import { MissingParamError } from './errors/missing-param-error';
+import { EmailValidator } from './protocols/email-validator';
 import { SingUpController } from './singup';
 
-const makeSut = () => new SingUpController();
+interface StubTypes {
+  sut: SingUpController,
+  emailValidatorStub: EmailValidator
+}
+
+const makeSut = (): StubTypes => {
+  class EmailValidatorStub implements EmailValidator {
+    isValid(email: string): boolean {
+      return true;
+    }
+  }
+  const emailValidatorStub = new EmailValidatorStub();
+  const sut = new SingUpController(emailValidatorStub);
+  return {
+    sut,
+    emailValidatorStub,
+  };
+};
 
 describe('', () => {
   test('Should return 400 when no name is provided ', () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
 
     const httpResquest = {
       body: {
@@ -22,7 +42,7 @@ describe('', () => {
   });
 
   test('Should return 400 when no email is provided ', () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
 
     const httpResquest = {
       body: {
@@ -39,7 +59,7 @@ describe('', () => {
   });
 
   test('Should return 400 when no password is provided ', () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
 
     const httpResquest = {
       body: {
@@ -56,7 +76,7 @@ describe('', () => {
   });
 
   test('Should return 400 when no passwordConfirm is provided ', () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
 
     const httpResquest = {
       body: {
@@ -70,5 +90,23 @@ describe('', () => {
 
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new MissingParamError('passwordConfirm'));
+  });
+
+  test('Should return 400 when an invalid email is provided is provided ', () => {
+    const { sut, emailValidatorStub } = makeSut();
+    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false);
+    const httpResquest = {
+      body: {
+        name: 'any_name',
+        email: 'invalid_email@mail.com',
+        password: 'any_password',
+        passwordConfirm: 'any_password',
+      },
+    };
+
+    const httpResponse = sut.handle(httpResquest);
+
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual(new InvalidParamError('email'));
   });
 });
