@@ -109,4 +109,22 @@ describe('', () => {
     expect(httpResponse.statusCode).toBe(400);
     expect(httpResponse.body).toEqual(new InvalidParamError('email'));
   });
+
+  test('Should be called with correct email', () => {
+    const { sut, emailValidatorStub } = makeSut();
+    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid');
+
+    const httpResquest = {
+      body: {
+        name: 'any_name',
+        email: 'any_mail@mail.com',
+        password: 'any_password',
+        passwordConfirm: 'any_password',
+      },
+    };
+
+    sut.handle(httpResquest);
+
+    expect(isValidSpy).toBeCalledWith('any_mail@mail.com');
+  });
 });
