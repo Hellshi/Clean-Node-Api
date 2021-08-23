@@ -96,6 +96,24 @@ describe('', () => {
     expect(httpResponse.body).toEqual(new MissingParamError('passwordConfirm'));
   });
 
+  test('Should return 400 when password confirmations fails ', () => {
+    const { sut } = makeSut();
+
+    const httpResquest = {
+      body: {
+        name: 'any_name',
+        email: 'any@mail.com',
+        password: 'any_password',
+        passwordConfirm: 'invalid_password',
+      },
+    };
+
+    const httpResponse = sut.handle(httpResquest);
+
+    expect(httpResponse.statusCode).toBe(400);
+    expect(httpResponse.body).toEqual(new InvalidParamError('passwordConfirm'));
+  });
+
   test('Should return 400 when an invalid email is provided is provided ', () => {
     const { sut, emailValidatorStub } = makeSut();
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false);
