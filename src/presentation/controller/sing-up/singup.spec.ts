@@ -1,10 +1,8 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-unused-vars */
-import { MissingParamError, ServerError, InvalidParamError } from './errors';
-import { EmailValidator } from './protocols';
-import { AddAccount, AddAccountModel } from '../../domain/usecases';
+import { MissingParamError, ServerError, InvalidParamError } from '../errors';
+import { EmailValidator, AddAccount, AccountModel, AddAccountModel } from './sing-up-protocols';
 import { SingUpController } from './singup';
-import { AccountModel } from '../../domain/models/account';
 
 interface StubTypes {
   sut: SingUpController,
