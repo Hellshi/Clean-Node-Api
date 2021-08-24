@@ -5,7 +5,13 @@
   "license": "MIT",
   "scripts": {
     "commit": "git cz",
-    "test": "jest --watch"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
+    "test:verbose": "jest --passWithNoTests --runInBand",
+    "test:unit": "yarn test -- --watch -c jest-unit-config.js",
+    "test:integration": "yarn test -- --watch -c jest-integration-config.js",
+    "test:staged": "yarn test --findRelatedTests",
+    "test:ci": "yarn test -- --coverage"
+
   },
   "dependencies": {
     "@types/express": "^4.17.13",
