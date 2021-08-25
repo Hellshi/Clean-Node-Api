@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { Encrypter } from '../../protocols/envrypter';
+import { Encrypter } from './db-add-account-protocols';
 import { DbAddAccount } from './db-add-account';
 
 export interface SutTypes {
