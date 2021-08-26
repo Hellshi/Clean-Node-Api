@@ -15,7 +15,7 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint", "jest", "mongodb",
+        "@typescript-eslint", "jest", "mongodb"
     ],
     "rules": {
       "no-restricted-syntax": "off",
