@@ -1,4 +1,5 @@
 import { mongoHelpers } from "../helpers/mongo-helpers";
+import { AccountMongoRepository } from "./account";
 
 describe('Mongo Repository', () => {
 
@@ -10,7 +11,7 @@ describe('Mongo Repository', () => {
     await mongoHelpers.disconnect()
   });
 
-  test('should return an account on sucess', async () => {
+  test('account should be truthy on sucess', async () => {
     const sut = new AccountMongoRepository();
     const account = await sut.add({
       name: 'any_name',
@@ -19,9 +20,5 @@ describe('Mongo Repository', () => {
     });
 
     expect(account).toBeTruthy();
-    expect(account.id).toBeTruthy();
-    expect(account.name).toBe('any_name');
-    expect(account.password).toBe('any_password');
-    expect(account.email).toBe('any_email@mail.com');
   });
 });
