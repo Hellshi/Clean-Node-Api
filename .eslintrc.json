@@ -18,6 +18,7 @@
         "@typescript-eslint", "jest", "mongodb"
     ],
     "rules": {
+      "import/no-extraneous-dependencies": "off",
       "no-restricted-syntax": "off",
       "consistent-return":"off",
       "object-curly-newline": ["error", {"multiline": true}],
