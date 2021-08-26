@@ -12,6 +12,11 @@ describe('Mongo Repository', () => {
     await mongoHelpers.disconnect();
   });
 
+  beforeEach(async () => {
+    const accountCollection = mongoHelpers.getCollection('accounts');
+    await accountCollection.deleteMany({});
+  });
+
   test('account should be returned on sucess', async () => {
     const sut = makeSut();
     const account = await sut.add({
