@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "sucrase-node src/main/server.ts",
     "commit": "git cz",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
@@ -17,15 +18,15 @@
     "@types/node": "^16.7.0",
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
-    "mongodb": "3.6",
+    "mongodb": "^3.6.3",
     "typescript": "^4.3.5",
     "validator": "^13.6.0"
   },
   "devDependencies": {
-    "@shelf/jest-mongodb": "^2.0.3",
+    "@shelf/jest-mongodb": "^1.2.1",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "^27.0.1",
-    "@types/mongodb": "^4.0.7",
+    "@types/mongodb": "^3.5.34",
     "@types/validator": "^13.6.3",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
@@ -36,6 +37,7 @@
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-mongodb": "^1.0.0",
     "jest": "^27.0.6",
+    "sucrase": "^3.20.1",
     "ts-jest": "^27.0.5"
   },
   "config": {
