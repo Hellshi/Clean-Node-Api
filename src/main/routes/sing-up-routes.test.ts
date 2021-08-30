@@ -12,7 +12,7 @@ describe('Sing up routes', () => {
   });
 
   beforeEach(async () => {
-    const accountCollection = mongoHelpers.getCollection('accounts');
+    const accountCollection = await mongoHelpers.getCollection('accounts');
     await accountCollection.deleteMany({});
   });
   test('should return an account on sucess', async () => {
