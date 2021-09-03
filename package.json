@@ -6,6 +6,7 @@
   "scripts": {
     "start": "sucrase-node src/main/server.ts",
     "commit": "git cz",
+    "test:clear": "jest --clearCache",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test -- --watch -c jest-unit-config.js",

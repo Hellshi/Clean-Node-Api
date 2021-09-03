@@ -24,6 +24,7 @@
       "object-curly-newline": ["error", {"multiline": true}],
       "class-methods-use-this":"off",
       "no-unused-expressions":"warn",
+      "no-console": "warn",
       "import/prefer-default-export": "off",
       "no-unused-vars":"warn",
     "indent": "off",
