@@ -1,20 +1,39 @@
 import { Controller, httpResponse, httpResquest } from '../../presentation/controller/protocols';
 import { LogControllerDecorator } from './log';
 
-describe('LogController', () => {
-  test('should call controller handle', async () => {
-    class ControllerStub implements Controller {
-      async handle(httpRequest: httpResquest): Promise<httpResponse> {
-        const httpResponse: httpResponse = {
-          statusCode: 200,
-          body: {},
-        };
-        return new Promise((resolve) => resolve(httpResponse));
-      }
+interface sutTypes {
+  sut: LogControllerDecorator
+  controllerStub: Controller
+}
+
+const makeController = (): Controller => {
+  class ControllerStub implements Controller {
+    async handle(httpRequest: httpResquest): Promise<httpResponse> {
+      const httpResponse: httpResponse = {
+        statusCode: 200,
+        body: {},
+      };
+      return new Promise((resolve) => resolve(httpResponse));
     }
-    const controllerStub = new ControllerStub();
-    const handleSpy = jest.spyOn(controllerStub, 'handle');
-    const sut = new LogControllerDecorator(controllerStub);
+  }
+  return new ControllerStub();
+};
+
+const makeSut = (): sutTypes => {
+  const controllerStub = makeController();
+  const sut = new LogControllerDecorator(controllerStub);
+  return {
+    sut,
+    controllerStub,
+  };
+};
+
+describe('LogController', () => {
+  const { sut, controllerStub } = makeSut();
+
+  const handleSpy = jest.spyOn(controllerStub, 'handle');
+
+  test('should call controller handle', async () => {
     const httpRequest = {
       body: {
         name: 'any_name',
