@@ -56,6 +56,13 @@ const makeFakeRequest = (): httpResquest => ({
     passwordConfirm: 'any_password',
   },
 });
+
+const makeFakeError = ():httpResponse => {
+  const fakeError = new Error();
+  fakeError.stack = 'any_stack';
+  return serverError(fakeError);
+};
+
 describe('LogController', () => {
   test('should call controller handle', async () => {
     const { sut, controllerStub } = makeSut();
@@ -77,11 +84,9 @@ describe('LogController', () => {
     async () => {
       const { sut, controllerStub, logErrorRepositoryStub } = makeSut();
       const logSpy = jest.spyOn(logErrorRepositoryStub, 'log');
-      const fakeError = new Error();
-      fakeError.stack = 'any_stack';
-      const error = serverError(fakeError);
+
       jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(
-        new Promise((resolve) => resolve(error)),
+        new Promise((resolve) => resolve(makeFakeError())),
       );
       await sut.handle(makeFakeRequest());
       expect(logSpy).toHaveBeenCalledWith('any_stack');
