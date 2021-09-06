@@ -7,7 +7,6 @@ export const mongoHelpers = {
   async connect(uri: string): Promise<void> {
     this.uri = uri;
     this.client = await MongoClient.connect(uri, {
-      // @ts-ignore: Unreachable code error
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
