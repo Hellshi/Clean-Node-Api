@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Controller, httpResponse, httpResquest } from '../../presentation/controller/protocols';
 import { LogControllerDecorator } from './log';
 
