@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Authentication } from '../../../domain/usecases/authentication';
 import { InvalidParamError, MissingParamError } from '../errors';
-import { badRequest, serverError } from '../helpers/http-helpers';
+import { badRequest, serverError, unauthorized } from '../helpers/http-helpers';
 import { httpResquest } from '../protocols';
 import { EmailValidator } from '../protocols/email-validator';
 import { LoginController } from './login';
@@ -90,5 +90,13 @@ describe('Login Controller', () => {
     const authSpy = jest.spyOn(AuthenticationStub, 'auth');
     await sut.handle(makeRequest());
     expect(authSpy).toHaveBeenCalledWith('any_email@mail.com', 'any_password');
+  });
+
+  test('should return 401 when user is unauthorized', async () => {
+    const { AuthenticationStub, sut } = makeSut();
+    jest.spyOn(AuthenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve) => resolve(null)));
+
+    const httpResponse = await sut.handle(makeRequest());
+    expect(httpResponse).toEqual(unauthorized());
   });
 });
