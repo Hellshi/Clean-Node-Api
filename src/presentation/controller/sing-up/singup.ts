@@ -1,4 +1,4 @@
-import { InvalidParamError, MissingParamError } from '../errors';
+import { InvalidParamError } from '../errors';
 import { badRequest, serverError, ok } from '../helpers/http-helpers';
 import { httpResponse, httpResquest, Controller, EmailValidator, AddAccount, Validation } from './sing-up-protocols';
 
@@ -22,13 +22,6 @@ export class SingUpController implements Controller {
         return badRequest(error);
       }
 
-      const requiredFields = ['name', 'email', 'passwordConfirm', 'password'];
-
-      for (const field of requiredFields) {
-        if (!httpResquest.body[field]) {
-          return badRequest(new MissingParamError(field));
-        }
-      }
       const { name, email, passwordConfirm, password } = httpResquest.body;
 
       if (password !== passwordConfirm) {
