@@ -224,4 +224,12 @@ describe('', () => {
 
     expect(validateSpy).toBeCalledWith(httpRequest.body);
   });
+
+  test('Should return 400 if validation returns an error', async () => {
+    const { sut, validationSutb } = makeSut();
+    const validateSpy = jest.spyOn(validationSutb, 'validate').mockReturnValueOnce(new MissingParamError('any_field'));
+
+    const httpResponse = await sut.handle(makeFakeRequest());
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')));
+  });
 });

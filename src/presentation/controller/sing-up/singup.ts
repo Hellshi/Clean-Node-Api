@@ -17,7 +17,10 @@ export class SingUpController implements Controller {
 
   async handle(httpResquest: httpResquest): Promise<httpResponse> {
     try {
-      this.validation.validate(httpResquest.body);
+      const error = this.validation.validate(httpResquest.body);
+      if (error) {
+        return badRequest(error);
+      }
 
       const requiredFields = ['name', 'email', 'passwordConfirm', 'password'];
 
