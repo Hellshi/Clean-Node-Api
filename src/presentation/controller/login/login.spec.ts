@@ -1,9 +1,7 @@
 /* eslint-disable max-classes-per-file */
-import { Authentication } from '../../../domain/usecases/authentication';
+import { Authentication, httpResquest, EmailValidator } from './login-protocols';
 import { InvalidParamError, MissingParamError } from '../errors';
 import { badRequest, serverError, unauthorized } from '../helpers/http-helpers';
-import { httpResquest } from '../protocols';
-import { EmailValidator } from '../protocols/email-validator';
 import { LoginController } from './login';
 
 interface SutTypes {
