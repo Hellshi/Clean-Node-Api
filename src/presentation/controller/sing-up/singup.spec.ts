@@ -2,13 +2,14 @@
 /* eslint-disable no-unused-vars */
 import { MissingParamError, ServerError, InvalidParamError } from '../errors';
 import { badRequest, ok, serverError } from '../helpers/http-helpers';
-import { EmailValidator, AddAccount, AccountModel, AddAccountModel, httpResquest } from './sing-up-protocols';
+import { EmailValidator, AddAccount, AccountModel, AddAccountModel, httpResquest, Validation } from './sing-up-protocols';
 import { SingUpController } from './singup';
 
 interface StubTypes {
   sut: SingUpController,
   emailValidatorStub: EmailValidator,
-  AddAccountStub: AddAccount
+  AddAccountStub: AddAccount,
+  validationSutb: Validation
 }
 
 const makeEmailValidator = (): EmailValidator => {
@@ -36,14 +37,25 @@ const makeAddAccount = (): AddAccount => {
   return new AddAccountStub();
 };
 
+const makeValidation = (): Validation => {
+  class ValidationStub implements Validation {
+    validate(input: any): Error {
+      return null;
+    }
+  }
+  return new ValidationStub();
+};
+
 const makeSut = (): StubTypes => {
   const AddAccountStub = makeAddAccount();
   const emailValidatorStub = makeEmailValidator();
-  const sut = new SingUpController(emailValidatorStub, AddAccountStub);
+  const validationSutb = makeValidation();
+  const sut = new SingUpController(emailValidatorStub, AddAccountStub, validationSutb);
   return {
     sut,
     AddAccountStub,
     emailValidatorStub,
+    validationSutb,
   };
 };
 
@@ -202,5 +214,14 @@ describe('', () => {
 
     const httpResponse = await sut.handle(makeFakeRequest());
     expect(httpResponse).toEqual(ok(makeFakeAccount()));
+  });
+
+  test('Should call Validation with correct value', async () => {
+    const { sut, validationSutb } = makeSut();
+    const validateSpy = jest.spyOn(validationSutb, 'validate');
+    const httpRequest = makeFakeRequest();
+    await sut.handle(httpRequest);
+
+    expect(validateSpy).toBeCalledWith(httpRequest.body);
   });
 });
