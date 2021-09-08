@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import { Authentication, httpResquest, EmailValidator } from './login-protocols';
 import { InvalidParamError, MissingParamError } from '../errors';
-import { badRequest, serverError, unauthorized } from '../helpers/http-helpers';
+import { badRequest, ok, serverError, unauthorized } from '../helpers/http-helpers';
 import { LoginController } from './login';
 
 interface SutTypes {
@@ -96,5 +96,11 @@ describe('Login Controller', () => {
 
     const httpResponse = await sut.handle(makeRequest());
     expect(httpResponse).toEqual(unauthorized());
+  });
+
+  test('should return 200 when user is authorized', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle(makeRequest());
+    expect(httpResponse).toEqual(ok(httpResponse.body));
   });
 });
