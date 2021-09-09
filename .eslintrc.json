@@ -27,6 +27,7 @@
       "no-console": "warn",
       "import/prefer-default-export": "off",
       "no-unused-vars":"warn",
+      "max-classes-per-file": "off",
     "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
 
