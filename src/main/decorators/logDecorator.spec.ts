@@ -3,7 +3,7 @@
 import { ok, serverError } from '../../presentation/controller/helpers/http-helpers';
 import { Controller, httpResponse, httpResquest } from '../../presentation/controller/protocols';
 import { LogControllerDecorator } from './log';
-import { LogErrorRepository } from '../../data/protocols/log-error-repository';
+import { LogErrorRepository } from '../../data/protocols/db/log-error-repository';
 import { AccountModel } from '../../domain/models/account';
 
 interface sutTypes {
