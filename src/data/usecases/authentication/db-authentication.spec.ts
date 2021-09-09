@@ -38,10 +38,19 @@ const makeFakeAuth = () => ({
 });
 
 describe('Db Authentication UseCase', () => {
-  test('should call LoadAccountByEmailRepository with correct email', () => {
+  test('should call LoadAccountByEmailRepository with correct email', async () => {
     const { loadAccountByEmailRepositoryStub, sut } = makeSut();
     const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'load');
-    sut.auth(makeFakeAuth());
+    await sut.auth(makeFakeAuth());
     expect(loadSpy).toHaveBeenCalledWith('any@mail.com');
+  });
+
+  test('should throw if LoadAccountByEmailRepository throws', async () => {
+    const { loadAccountByEmailRepositoryStub, sut } = makeSut();
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'load').mockReturnValueOnce(
+      new Promise((resolve, reject) => reject(new Error())),
+    );
+    const promise = sut.auth(makeFakeAuth());
+    await expect(promise).rejects.toThrow();
   });
 });
