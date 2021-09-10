@@ -42,4 +42,12 @@ describe('Bcrypt adapter', () => {
     await sut.compare('any_value', 'any_hash');
     expect(compareSpy).toHaveBeenCalledWith('any_value', 'any_hash');
   });
+
+  test('should return true on sucess', async () => {
+    const sut = makeSut();
+    // @ts-ignore: Unreachable code error
+    jest.spyOn(bcrypt, 'compare').mockReturnValueOnce(new Promise((resolve) => resolve(true)));
+    const response = await sut.compare('any_value', 'any_hash');
+    expect(response).toBe(true);
+  });
 });
