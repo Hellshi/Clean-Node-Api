@@ -1,7 +1,7 @@
 /* eslint-disable no-return-await */
 import bcrypt from 'bcrypt';
-import { Encrypter } from '../../data/protocols/criptography/envrypter';
-import { HashComparer } from '../../data/protocols/criptography/hash-compare';
+import { Encrypter } from '../../../data/protocols/criptography/envrypter';
+import { HashComparer } from '../../../data/protocols/criptography/hash-compare';
 
 export class BcryptAdapter implements Encrypter, HashComparer {
   private readonly salt: number
